@@ -11,11 +11,70 @@
 
 // Select the database to use.
 use('school-admin-system');
-
-// Insert a few documents into the sales collection.
+db.users.drop();
+db.schoolusers.drop();
+db.schools.drop();
+db.standards.drop();
+db.sections.drop();
+db.students.drop();
+//Insert a few documents into the sales collection.
 db.getCollection('users').insertMany([
-  {uuid: 'c5baa5b1-7f9d-46e7-8ace-044d30720c02', username: 'user1', password: 'pass1', isSuperAdmin: false, createdAt: new Date(), isActive: true },
-  {uuid: '459e2a9b-8507-425d-be17-3ea9a302c84e', username: 'user2', password: 'pass2', isSuperAdmin: false, createdAt: new Date(), isActive: true },
+  { username: 'user1', password: 'pass1', issuperadmin: false,  status:'active'},
+  { username: 'user2', password: 'pass2', issuperadmin: false,  status:'active' },
 ]);
 
+db.getCollection('schoolusers').insertMany([
+  { user_id: '643c1e0f910f7374814a8eac', role: 'admin' },
+  { user_id: '643c1e0f910f7374814a8eac', role: 'teacher' },
+  
+]);
 
+db.getCollection('sections').insertMany([
+  { section_name: 'Section A', class_id: 'a24c904d-9931-4d67-b025-9939a7cb4542' },
+  { section_name: 'Section B', class_id: 'a24c904d-9931-4d67-b025-9939a7cb4542' },
+  ]);
+
+db.getCollection('standards').insertMany([
+  { class_name: '1' },
+  { class_name: '2' }
+]);
+
+db.getCollection('students').insertMany([
+  {
+    student_name: 'teststudent',
+    student_gender: 'Male',
+    student_dob: '1998-01-01',
+    student_contact: 1234567890,
+    school_id: 'school_id_1',
+    section_id: 'section B'
+  },
+  {
+    student_name: 'Jane Doe',
+    student_gender: 'Female',
+    student_dob: '1999-02-02',
+    student_contact: 2345678901,
+    school_id: 'school_id_2',
+    section_name: 'section A'
+  }
+]);
+
+ db.getCollection('schools').insertMany([
+  {
+    school_name: 'testschool1',
+  school_address : 'jaynagar',
+  school_contact: 9845668742,
+  
+},
+{
+  school_name: 'testschool2',
+  school_address : 'jp magar',
+  school_contact: 9845668742,
+  
+},
+ ]);
+// db.getRoles({showBuiltinRoles:true});
+// db.createUser({
+//   user:'school-admin-system',
+//   pwd:'password',
+//   roles:[{role:'readWrite',db:school-admin-system}],
+// });

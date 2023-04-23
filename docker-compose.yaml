@@ -1,18 +1,45 @@
-name: project_backend
 version: "3"
 services:
   database:
-    image: mongo
     container_name: school-administration-system-data
+    image: mongo
     restart: unless-stopped
-   
-    ports:
-      - "27018:27017"
     volumes:
       - ./data:/data/db
+    ports:
+      - "27018:27017"
     networks:
       - mongodb_network
-  
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: harshitha
+    #   MONGO_INITDB_ROOT_PASSWORD: harshitha@123
+    
+
+  backend:
+    container_name: school-administration-system-backend
+    image: node:14
+    restart: unless-stopped
+    depends_on:
+      - database
+    volumes:
+      - "$PWD:/app"
+    working_dir: "/app"
+    command: ["npm", "run", "dev"]
+
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOST=database
+      - DATABASE_PORT=27018
+      - DATABASE_NAME=school-admin-system
+      # - DATABASE_USERNAME=harshitha
+      # - DATABASE_PASSWORD=harshitha123
+      - PORT=3000
+    
+    ports:
+      - "3000:3000"
+    networks:
+      - mongodb_network
+
 networks:
   mongodb_network:
-   driver: bridge
+    driver: bridge

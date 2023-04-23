@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"name": "SAP API",
+			"path": "../../Api"
+		},
+		{
+			"name": "SAP database",
+			"path": "../../school_admin_system_backend"
+		},
+		
+		{
+			"name": "SAP Web",
+			"path": "../../Web"
+		}
+	],
+	"settings": {}
+}
