@@ -31,9 +31,7 @@ const UserSchema  = new Schema<UserType,UserModel>({
   versionKey: false,
   timestamps: true,
   id: false,
-  // capped: { size: 1024 },
-  // bufferCommands: false,
-  // autoCreate: false ,
+  
   statics: {
     getUserById: async function (id: string) {
       return this.findById(id);
@@ -102,8 +100,8 @@ const UserSchema  = new Schema<UserType,UserModel>({
   }
 );
 
-UserSchema.index({ username: 'asc' }, { unique: true, name: 'unique_user_username' });
+UserSchema.index({ username: 1 }, { unique: true, name: 'unique_user_username' });
 
- const User = model<UserType, UserModel>('user', UserSchema);
+ const User = model<UserType, UserModel>('User', UserSchema);
 
  export { User, UserSchema };

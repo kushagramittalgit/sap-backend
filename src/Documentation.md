@@ -25,9 +25,22 @@ School
                 -CreateStudent-name,address,dob,class_name,section-name,school_id
                  -->EditStudent - editcontact(),editname(),changeSection(),editaddress()
 
-M-M -> only possible external table which takes both the entities
+M-M -> only possible external table which takes both the entities(relation table,xref/crossref table)
 schoolstudent
 methods-remove(id,id,id):boolean
 
 Model
 Promise<UserType|undefined>
+
+portainer-docker
+proxy-manager
+mongo
+
+stack-set of services
+networks:
+default:name,driver:,ipam:config:-subnet:gateway(assigned to host)
+databases:name,driver:bridge,ipm:config:-subnet:gateway                         networks-host(access anything),none,bridge
+servicces:
+proxy-manager:-container_name:,hostname,image:,restart,ports:nnetworks:defaukt:ipv4_address,volumes,environment:DISABLE_IPV6:'true'
+mongo:
+container_name:,image:,restart,volumes,ports,command:- '--auth',networks:databases:ipv4_address:

@@ -9,7 +9,7 @@ const StandardSchema = new Schema<StandardType, StandardModel>({
     type: String,
     default: () => randomUUID(),
   },
-  name: {
+  label: {
     type: String,
     required: true,
   },

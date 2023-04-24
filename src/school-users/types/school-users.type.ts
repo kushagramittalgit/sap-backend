@@ -1,7 +1,7 @@
 import { BaseType } from "../../common/types/base.type";
 
 
-type SchoolUserRoleType = 'schooladmin' | 'staff' | 'student';
+export type SchoolUserRoleType = 'schooladmin' | 'staff' | 'student';
 
 export type SchoolUserStatusType = 'Active' | 'Blocked' | 'Removed';
 

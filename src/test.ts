@@ -24,9 +24,9 @@ import mongoose from 'mongoose';
      // Create User
 
     //  const newUser : any = {
-    //    username: 'example2',
-    //    password: 'password2',
-    //    issuperadmin: false,
+    //    username: 'example',
+    //    password: 'password',
+    //    issuperadmin: true,
     //    status: 'disabled',
     //  };
  
@@ -70,9 +70,9 @@ import mongoose from 'mongoose';
   // Create School
   // const newSchool : any = {
   //      school_name: 'testschool',
-  //      school_state : 'telangana',
-  //      school_city : 'vizag',
-  //      school_contact: 9845668456,      
+  //      school_state : 'KA',
+  //      school_city : 'Blore',
+  //      school_contact: 9845668434,      
   //    };   
   //    const createdSchool = await School.createSchool(newSchool);
   //    console.log(createdSchool);
@@ -84,18 +84,24 @@ import mongoose from 'mongoose';
  
     //create schoolUsers
     // const newSchoolUser : any = {
-    //        user_id: '0952cc95-6558-4b8a-b994-a8ef7050db98',
-    //        school_id : '7f051d5e-bfed-4df4-be45-a66136acb058',
-    //        role : 'student',
+    //        user_id: '2651b256-eaeb-416e-b210-ee75765057b0',
+    //        school_id : 'c8d49c70-0f47-40aa-a09f-c1d897dfad8d',
+    //        role : 'schooladmin',
     //        status: 'Active',      
     //      };   
     //      const createdSchool = await SchoolUser.createSchoolUser(newSchoolUser);
     //      console.log(createdSchool);
 
-    //Get UsersBySchoolId
-    const schoolId = '7f051d5e-bfed-4df4-be45-a66136acb058';
+    //Get SchoolUsersByid
+    const schoolId = '0c6bf70b-dc56-40c6-a8c6-7e6a45bb761c';
     const users = await SchoolUser.getUsersBySchoolId(schoolId);
     console.log(users);
+    
+    //Get Users by schoolid
+    
+    // const schooluserId = '490c5219-2d68-42e6-afab-e1e074e0aaf0';
+    // const users = await SchoolUser.getSchoolUserById(schooluserId);
+    // console.log(users);
 
     }catch (err) {
     console.log('Error connecting to MongoDB', err);

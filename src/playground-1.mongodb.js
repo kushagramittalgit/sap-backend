@@ -72,9 +72,17 @@ db.getCollection('students').insertMany([
   
 },
  ]);
-// db.getRoles({showBuiltinRoles:true});
+// db.getRoles({showBuiltinRoles:true}); (It shows the roles for particular database(usedb))
 // db.createUser({
 //   user:'school-admin-system',
 //   pwd:'password',
-//   roles:[{role:'readWrite',db:school-admin-system}],
+//   roles:[{role:'userAdminAnyDatabase',db:school-admin-system},
+//   {}]
 // });
+
+//mongo.ts
+// export const getConnection = async (config?:{dbHost:String,dbPort,dbname,dbUsername?:String,dbpassword?:string})
+// const dbHost=config?.dbHost ?? process.env.DATABASE_HOST;
+// const appName = ''
+// const url=''
+// -connection code

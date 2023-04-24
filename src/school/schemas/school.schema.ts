@@ -44,6 +44,6 @@ const SchoolSchema = new Schema<SchoolType, SchoolModel>({
 });
 
 
-const School = model<SchoolType, SchoolModel>('school', SchoolSchema);
+const School = model<SchoolType, SchoolModel>('School', SchoolSchema);
 
 export { School, SchoolSchema };

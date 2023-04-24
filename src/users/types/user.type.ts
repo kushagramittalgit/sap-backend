@@ -6,6 +6,6 @@ export type UserType = BaseType & {
   username: string;
   password: string;
   issuperadmin:boolean;
-  status: UserStatusType ;
+  status?: UserStatusType ;
 }
 
