@@ -93,12 +93,12 @@ import mongoose from 'mongoose';
     //      console.log(createdSchool);
 
     //Get SchoolUsersByid
-    const schoolId = '0c6bf70b-dc56-40c6-a8c6-7e6a45bb761c';
-    const users = await SchoolUser.getUsersBySchoolId(schoolId);
-    console.log(users);
+    // const schoolId = '0c6bf70b-dc56-40c6-a8c6-7e6a45bb761c';
+    // const users = await SchoolUser.getUsersBySchoolId(schoolId);
+    // console.log(users);
     
     //Get Users by schoolid
-    
+
     // const schooluserId = '490c5219-2d68-42e6-afab-e1e074e0aaf0';
     // const users = await SchoolUser.getSchoolUserById(schooluserId);
     // console.log(users);

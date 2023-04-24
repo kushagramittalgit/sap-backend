@@ -33,7 +33,15 @@ const SchoolStudentSchema = new Schema<SchoolStudentType,SchoolStudentModel>({
   toJSON: { virtuals: true },
   versionKey: false,
   timestamps: true,
-  id: false
+  id: false,
+  statics: {
+    getSchoolStudentById: async function (id: string) {
+      return this.findById(id);
+    },
+    createSchoolStudent:async function (data:SchoolStudentType){
+      return this.create({...data});
+    },
+  }
 });
 
 SchoolStudentSchema.virtual('school', {

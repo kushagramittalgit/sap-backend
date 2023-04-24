@@ -29,16 +29,54 @@ const StandardSchema = new Schema<StandardType, StandardModel>({
   versionKey: false,
   timestamps: true,
   id: false,
+  statics: {
+    getStandardById: async function (id: string) {
+      return this.findById(id);
+    },
+    createStandard:async function (data:StandardType){
+      return this.create({...data});
+    },
+    
+  removeStandard:async function (id:string) {
+    const data = await this.findById(id);
+    if(data){
+      data.status ='removed';
+      const response = await data.save();
+      return !!response;
+    }else {
+      return false;
+    }
+  },
+  activateStandard:async function (id:string) {
+    const data = await this.findById(id);
+    if(data){
+      data.status ='active';
+      const response = await data.save();
+      return !!response;
+    }else {
+      return false;
+    }
+  },
   
-});
+  getStandards: async function (page: number, limit: number) {
+    const users = await this.find()
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .exec();
 
-StandardSchema.virtual('school', {
-  ref: 'School',
-  localField: 'school_id',
-  foreignField: '_id',
-  justOne: true
-});
+    const count = await this.countDocuments().exec();
+    const totalPages = Math.ceil(count / limit);
 
+    return {
+      users,
+      totalPages,
+      currentPage: page,
+      totalUsers: count,
+    };
+  },
+}
+});
 
 const Standard = model<StandardType, StandardModel>('standard', StandardSchema);
 

@@ -33,6 +33,53 @@ const SectionSchema = new Schema<SectionType,SectionModel>({
   versionKey: false,
   timestamps: true,
   id: false,
+  statics: {
+    getSectionById: async function (id: string) {
+      return this.findById(id);
+    },
+    createSection:async function (data:SectionType){
+      return this.create({...data});
+    },
+    
+  removeSection:async function (id:string) {
+    const data = await this.findById(id);
+    if(data){
+      data.status ='removed';
+      const response = await data.save();
+      return !!response;
+    }else {
+      return false;
+    }
+  },
+  activateSection:async function (id:string) {
+    const data = await this.findById(id);
+    if(data){
+      data.status ='Active';
+      const response = await data.save();
+      return !!response;
+    }else {
+      return false;
+    }
+  },
+  
+  getSections: async function (page: number, limit: number) {
+    const users = await this.find()
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .exec();
+
+    const count = await this.countDocuments().exec();
+    const totalPages = Math.ceil(count / limit);
+
+    return {
+      users,
+      totalPages,
+      currentPage: page,
+      totalUsers: count,
+    };
+  },
+}
 });
 
 SectionSchema.virtual('standard', {

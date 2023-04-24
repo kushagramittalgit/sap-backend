@@ -33,6 +33,15 @@ const StudentSchema = new Schema<StudentType>({
   versionKey: false,
   timestamps: true,
   id: false,
+  statics: {
+    getStudentById: async function (id: string) {
+      return this.findById(id);
+    },
+    createStudent:async function (data:StudentType){
+      return this.create({...data});
+    },
+  }
+  
 });
 
 StudentSchema.virtual('School', {
