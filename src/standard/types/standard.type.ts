@@ -1,11 +1,12 @@
-import { Types } from 'mongoose';
 import { BaseType } from '../../common/types/base.type';
 
-type StandardStatusType = 'active' | 'removed';
+export const StandardStatus = {
+  active:'active' ,  removed: 'removed'} as const;
+export type StandardStatus = keyof typeof StandardStatus
 
 export type StandardType = BaseType & {
   label: string;
   school_id:string;
-  status: StandardStatusType;
+  status: StandardStatus;
 }
 

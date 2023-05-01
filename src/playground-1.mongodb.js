@@ -32,7 +32,7 @@ db.getCollection('schoolusers').insertMany([
 db.getCollection('sections').insertMany([
   { section_name: 'Section A', class_id: 'a24c904d-9931-4d67-b025-9939a7cb4542' },
   { section_name: 'Section B', class_id: 'a24c904d-9931-4d67-b025-9939a7cb4542' },
-  ]);
+]);
 
 db.getCollection('standards').insertMany([
   { class_name: '1' },
@@ -58,20 +58,20 @@ db.getCollection('students').insertMany([
   }
 ]);
 
- db.getCollection('schools').insertMany([
+db.getCollection('schools').insertMany([
   {
     school_name: 'testschool1',
-  school_address : 'jaynagar',
-  school_contact: 9845668742,
+    school_address : 'jaynagar',
+    school_contact: 9845668742,
   
-},
-{
-  school_name: 'testschool2',
-  school_address : 'jp magar',
-  school_contact: 9845668742,
+  },
+  {
+    school_name: 'testschool2',
+    school_address : 'jp magar',
+    school_contact: 9845668742,
   
-},
- ]);
+  },
+]);
 // db.getRoles({showBuiltinRoles:true}); (It shows the roles for particular database(usedb))
 // db.createUser({
 //   user:'school-admin-system',

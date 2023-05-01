@@ -9,7 +9,7 @@ const SchoolSchema = new Schema<SchoolType, SchoolModel>({
     default: () => randomUUID(),
   },
 
-    school_name: {
+  school_name: {
     type: String,
     required: true,
   },

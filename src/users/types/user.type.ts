@@ -1,11 +1,11 @@
-import { BaseType } from "../../common/types/base.type";
+import { BaseType } from '../../common/types/base.type';
 
-export type UserStatusType = 'active'|'disabled'|'removed';
-
+export const UserStatus = {
+  active:'active' , disabled:'disabled', removed: 'removed'} as const;
+export type UserStatus = keyof typeof UserStatus
 export type UserType = BaseType & {
   username: string;
   password: string;
-  issuperadmin:boolean;
-  status?: UserStatusType ;
-}
-
+  isSuperAdmin: boolean;
+  status: UserStatus;
+};

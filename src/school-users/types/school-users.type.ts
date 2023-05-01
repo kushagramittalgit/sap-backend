@@ -1,14 +1,21 @@
-import { BaseType } from "../../common/types/base.type";
+import { BaseType } from '../../common/types/base.type';
 
 
-export type SchoolUserRoleType = 'schooladmin' | 'staff' | 'student';
+export const SchoolUserRole = {
+  schooladmin:'schooladmin',
+  staff:'staff',
+  student:'student'
+} as const;
 
-export type SchoolUserStatusType = 'Active' | 'Blocked' | 'Removed';
+export const SchoolUserStatus = {
+  active:'active' , blocked:'blocked', removed: 'removed'} as const;
+export type SchoolUserStatus = keyof typeof SchoolUserStatus
+export type SchoolUserRole = keyof typeof SchoolUserRole
 
 export type SchoolUserType = BaseType & {
   user_id: string;
-  role: SchoolUserRoleType;
-  status:SchoolUserStatusType;
+  role: SchoolUserRole;
+  status:SchoolUserStatus;
   school_id: string;
   
 } 

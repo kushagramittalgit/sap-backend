@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
-const dbHost = process.env.DATABASE_HOST;
-const dbPort = process.env.DATABASE_PORT;
-const dbName = process.env.DATABASE_NAME;
+// const dbHost = process.env.DATABASE_HOST;
+// const dbPort = process.env.DATABASE_PORT;
+// const dbName = process.env.DATABASE_NAME;
 
 
-const url = `mongodb://localhost:27018/school-admin-system`;
+const url = 'mongodb://localhost:27018/school-admin-system';
 
 
 export const getConnection = async () => {

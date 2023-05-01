@@ -29,6 +29,7 @@ M-M -> only possible external table which takes both the entities(relation table
 schoolstudent
 methods-remove(id,id,id):boolean
 
+
 Model
 Promise<UserType|undefined>
 
@@ -40,7 +41,21 @@ stack-set of services
 networks:
 default:name,driver:,ipam:config:-subnet:gateway(assigned to host)
 databases:name,driver:bridge,ipm:config:-subnet:gateway                         networks-host(access anything),none,bridge
-servicces:
+services:
 proxy-manager:-container_name:,hostname,image:,restart,ports:nnetworks:defaukt:ipv4_address,volumes,environment:DISABLE_IPV6:'true'
 mongo:
 container_name:,image:,restart,volumes,ports,command:- '--auth',networks:databases:ipv4_address:
+
+//indexes for by 
+UserSchema.virtual('schools,{
+  ref:'schoolusers,
+  local:_id
+  foriegn:user_id
+})
+
+match:{status:active}
+
+//for excluding fields
+findById(id,[--password]),{
+  populate:....
+}

@@ -1,23 +1,20 @@
-version: "3"
+name: SAP
 services:
   database:
-    container_name: school-administration-system-data
-    image: mongo
+    container_name: SAP-data
+    image: mongo:latest
     restart: unless-stopped
     volumes:
-      - ./data:/data/db
+      - "$PWD/database/data/db:/data/db"
     ports:
-      - "27018:27017"
+      - 27018:27017
     networks:
-      - mongodb_network
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: harshitha
-    #   MONGO_INITDB_ROOT_PASSWORD: harshitha@123
-    
+      default:
+        ipv4_address: 172.18.0.2
 
-  backend:
-    container_name: school-administration-system-backend
-    image: node:14
+  SAP_api:
+    container_name: sap-api
+    image: node:lts-alpine
     restart: unless-stopped
     depends_on:
       - database
@@ -25,21 +22,26 @@ services:
       - "$PWD:/app"
     working_dir: "/app"
     command: ["npm", "run", "dev"]
-
     environment:
-      - NODE_ENV=development
-      - DATABASE_HOST=database
-      - DATABASE_PORT=27018
-      - DATABASE_NAME=school-admin-system
-      # - DATABASE_USERNAME=harshitha
-      # - DATABASE_PASSWORD=harshitha123
-      - PORT=3000
-    
-    ports:
-      - "3000:3000"
+      - PORT=8080
+      - DATABASE_HOST=SAP-data
+      - DATABASE_PORT=27017
+      - DATABASE_NAME=SAP-data
     networks:
-      - mongodb_network
+      default:
+        ipv4_address: 172.18.0.3
+      proxy-network:
+        ipv4_address: 172.20.0.4
 
 networks:
-  mongodb_network:
+  default:
+    name: teamwork
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+  proxy-network:
+  
+    external: true
+    name: proxy-network

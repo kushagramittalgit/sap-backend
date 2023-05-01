@@ -1,11 +1,13 @@
 import { BaseType } from '../../common/types/base.type';
 
-type SectionStatusType = 'Active' | 'removed';
+export const SectionStatus = {
+  active:'active' ,  removed: 'removed'} as const;
+export type SectionStatus = keyof typeof SectionStatus
 
 export type SectionType = BaseType & {
   name: string;
   standard_id: string;
   school_id:string;
-  status:SectionStatusType;
+  status:SectionStatus;
 }
 

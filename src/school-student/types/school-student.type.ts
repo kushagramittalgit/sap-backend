@@ -1,4 +1,4 @@
-import { BaseType } from "../../common/types/base.type";
+import { BaseType } from '../../common/types/base.type';
 
 export type SchoolStudentType = BaseType & {
   standard_id: string;

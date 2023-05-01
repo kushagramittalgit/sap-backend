@@ -1,5 +1,5 @@
-import { Schema, model, Document, Types } from 'mongoose';
-import { SectionType } from '../types';
+import { Schema, model } from 'mongoose';
+import { SectionStatus, SectionType } from '../types';
 import { SectionModel } from '../models';
 import { randomUUID } from 'crypto';
 
@@ -22,9 +22,9 @@ const SectionSchema = new Schema<SectionType,SectionModel>({
   },
   status: {
     type: String,
-    default: 'Active',
+    default: 'active',
     required:true,
-    enum: ['Active', 'removed']
+    enum: [...Object.keys(SectionStatus)]
   },
   
 }, {
@@ -41,45 +41,45 @@ const SectionSchema = new Schema<SectionType,SectionModel>({
       return this.create({...data});
     },
     
-  removeSection:async function (id:string) {
-    const data = await this.findById(id);
-    if(data){
-      data.status ='removed';
-      const response = await data.save();
-      return !!response;
-    }else {
-      return false;
-    }
-  },
-  activateSection:async function (id:string) {
-    const data = await this.findById(id);
-    if(data){
-      data.status ='Active';
-      const response = await data.save();
-      return !!response;
-    }else {
-      return false;
-    }
-  },
+    removeSection:async function (id:string) {
+      const data = await this.findById(id);
+      if(data){
+        data.status ='removed';
+        const response = await data.save();
+        return !!response;
+      }else {
+        return false;
+      }
+    },
+    activateSection:async function (id:string) {
+      const data = await this.findById(id);
+      if(data){
+        data.status ='active';
+        const response = await data.save();
+        return !!response;
+      }else {
+        return false;
+      }
+    },
   
-  getSections: async function (page: number, limit: number) {
-    const users = await this.find()
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .exec();
+    getSections: async function (page: number, limit: number) {
+      const users = await this.find()
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .exec();
 
-    const count = await this.countDocuments().exec();
-    const totalPages = Math.ceil(count / limit);
+      const count = await this.countDocuments().exec();
+      const totalPages = Math.ceil(count / limit);
 
-    return {
-      users,
-      totalPages,
-      currentPage: page,
-      totalUsers: count,
-    };
-  },
-}
+      return {
+        users,
+        totalPages,
+        currentPage: page,
+        totalUsers: count,
+      };
+    },
+  }
 });
 
 SectionSchema.virtual('standard', {

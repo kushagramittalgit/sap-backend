@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { randomUUID } from 'crypto';
 import { User } from '../../users/schemas';
 import { SchoolUserModel } from '../models';
-import { SchoolUserRoleType, SchoolUserType } from '../types';
+import {  SchoolUserRole, SchoolUserStatus, SchoolUserType } from '../types';
 import { School } from '../../school/schemas';
 
 const SchoolUserSchema = new Schema<SchoolUserType,SchoolUserModel>({
@@ -18,17 +18,17 @@ const SchoolUserSchema = new Schema<SchoolUserType,SchoolUserModel>({
   school_id: {
     type: String,
     required: true,
- },
-    role: {
+  },
+  role: {
     type: String,
     required: true,
-    enum: ['schooladmin', 'staff', 'student']
+    enum: [...Object.keys(SchoolUserRole)]
   },
   status: {
     type: String,
-    default: 'Active',
+    default: 'active',
     required: true,
-    enum: ['Active', 'Blocked', 'Removed']
+    enum: [...Object.keys(SchoolUserStatus)]
   },
 }, {
   toObject: { virtuals: true },
@@ -39,8 +39,8 @@ const SchoolUserSchema = new Schema<SchoolUserType,SchoolUserModel>({
   statics: {
     getSchoolUserById: async function (id) {
       return this.findById(id)
-      .populate('user',null,User.modelName)
-      .populate('school',null,School.modelName);
+        .populate('user',null,User.modelName)
+        .populate('school',null,School.modelName);
     },
     createSchoolUser: async function (data) {
       return this.create({...data});
@@ -48,7 +48,7 @@ const SchoolUserSchema = new Schema<SchoolUserType,SchoolUserModel>({
     blockSchoolUser: async function (id) {
       const data = await this.findById(id);
       if (data) {
-        data.status ='Blocked';
+        data.status ='blocked';
         const response = await data.save();
         return !!response;
       } else {
@@ -56,9 +56,9 @@ const SchoolUserSchema = new Schema<SchoolUserType,SchoolUserModel>({
       }
     },
     activateSchoolUser: async function (id) {
-      const data :any = await this.findById(id);
+      const data  = await this.findById(id);
       if (data) {
-        data.status ='Active';
+        data.status ='active';
         const response = await data.save();
         return !!response;
       } else {
@@ -68,14 +68,14 @@ const SchoolUserSchema = new Schema<SchoolUserType,SchoolUserModel>({
     removeSchoolUser: async function (id) {
       const data = await this.findById(id);
       if (data) {
-        data.status ='Removed';
+        data.status ='removed';
         const response = await data.save();
         return !!response;
       } else {
         return false;
       }
     },
-    changeRole: async function (id:string, role:SchoolUserRoleType) {
+    changeRole: async function (id:string, role:SchoolUserRole) {
       const data = await this.findById(id);
       if (data) {
         data.role = role;
@@ -87,8 +87,8 @@ const SchoolUserSchema = new Schema<SchoolUserType,SchoolUserModel>({
     },
     getUsersBySchoolId: async function (schoolId: string): Promise<Array<{ username: string, role: string }>> {
       const schoolUsers = await this.find({ school_id: schoolId })
-      .populate('user', 'username').populate({ path: 'user', model: 'User', select: 'username' }).exec();
-      return schoolUsers.map((schoolUser: any) => ({ username: schoolUser.user.username, role: schoolUser.role }));
+        .populate('user', 'username').populate({ path: 'user', model: 'User', select: 'username' }).exec();
+      return schoolUsers.map((schoolUser:any) => ({ username: schoolUser.user.username, role: schoolUser.role }));
     },
     
   }
